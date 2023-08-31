@@ -76,9 +76,10 @@ plt.bar(X4, ave_t[3], color=post_cis_color, width=barWidth, label='Post-cis')
 plt.xticks([r + barWidth for r in range(len(ave_t[0]))],
         ['Session'])
 plt.ylabel('Average cluster size per block')  # Add the label for y-axis
+plt.ylim(0, 40)  # Set y-axis limits
+
 
 
 plt.legend()
 ##plt.ylabel('Numbernts')
 plt.show()
-
