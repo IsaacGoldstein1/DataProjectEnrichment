@@ -1,3 +1,4 @@
+##This code works for batches of 3 animals! 
 import json
 import numpy as np
 from itertools import groupby
