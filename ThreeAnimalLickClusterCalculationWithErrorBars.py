@@ -6,7 +6,7 @@ from scipy.stats import wilcoxon
 import pandas as pd
 import seaborn as sns
 
-f = open("TG29303132.txt", "r")
+f = open("33-35.txt", "r")
 name_idx = [0, 73, 146, 219]
 line_count = 0
 idx = 0
@@ -57,25 +57,25 @@ temp = []
 ave_t = np.array(ave_list).T.tolist()
 print (ave_t)
 
-pre_carvone = np.array(ave_t[0])
-post_carvone = np.array(ave_t[2])
-pre_cis_hex = np.array(ave_t[1])
-post_cis_hex = np.array(ave_t[3])
+pre_carv = np.array(ave_t[0])
+post_carv = np.array(ave_t[2])
+pre_cis = np.array(ave_t[1])
+post_cis = np.array(ave_t[3])
 
-# Now, perform the Wilcoxon signed-rank test for carvone conditions
-carvone_wilcoxon_stat, carvone_p_value = wilcoxon(pre_carvone, post_carvone)
+# # Now, perform the Wilcoxon signed-rank test for carvone conditions
+# carvone_wilcoxon_stat, carvone_p_value = wilcoxon(pre_carvone, post_carvone)
 
-# Perform the Wilcoxon signed-rank test for cis-hex conditions
-cis_hex_wilcoxon_stat, cis_hex_p_value = wilcoxon(pre_cis_hex, post_cis_hex)
+# # Perform the Wilcoxon signed-rank test for cis-hex conditions
+# cis_hex_wilcoxon_stat, cis_hex_p_value = wilcoxon(pre_cis_hex, post_cis_hex)
 
-# Print the results
-print("Wilcoxon signed-rank test for carvone conditions:")
-print("Statistic:", carvone_wilcoxon_stat)
-print("P-value:", carvone_p_value)
+# # Print the results
+# print("Wilcoxon signed-rank test for carvone conditions:")
+# print("Statistic:", carvone_wilcoxon_stat)
+# print("P-value:", carvone_p_value)
 
-print("\nWilcoxon signed-rank test for cis-hex conditions:")
-print("Statistic:", cis_hex_wilcoxon_stat)
-print("P-value:", cis_hex_p_value)
+# print("\nWilcoxon signed-rank test for cis-hex conditions:")
+# print("Statistic:", cis_hex_wilcoxon_stat)
+# print("P-value:", cis_hex_p_value)
 barWidth = 0.15
 spacing = 0.2  # Adjust this value to set the desired space between bars X2 and X3
 
@@ -84,27 +84,26 @@ X2 = [x + barWidth for x in X1]
 X3 = [x + barWidth + spacing for x in X2]  # Add spacing between X2 and X3
 X4 = [x + barWidth for x in X3]
 
-pre_ethyl_color = 'lightblue'
-post_ethyl_color = 'darkblue'
-pre_citral_color = 'salmon'
-post_citral_color = 'darkred'
+pre_carv_color = 'salmon'
+post_carv_color = 'darkred'
+pre_cis_color = 'lightblue'
+post_cis_color = 'darkblue'
 fig = plt.figure(figsize=(20,12))
 
-plt.bar(X1, ave_t[0], color=pre_citral_color, width=barWidth, label='Pre-Carvone')
-plt.bar(X2, ave_t[2], color=post_citral_color, width=barWidth, label='Post-Carvone')
-plt.bar(X3, ave_t[1], color=pre_ethyl_color, width=barWidth, label='Pre-cis-3-hexen-1-ol')
-plt.bar(X4, ave_t[3], color=post_ethyl_color, width=barWidth, label='Post-cis-3-hexen-1-ol')
+plt.bar(X1, ave_t[0], color=pre_carv_color, width=barWidth, label='Pre-Carvone')
+plt.bar(X2, ave_t[2], color=post_carv_color, width=barWidth, label='Post-Carvone')
+plt.bar(X3, ave_t[1], color=pre_cis_color, width=barWidth, label='Pre-cis-3-hexen-1-ol')
+plt.bar(X4, ave_t[3], color=post_cis_color, width=barWidth, label='Post-cis-3-hexen-1-ol')
 plt.xticks([r + barWidth for r in range(len(ave_t[0]))],
         ['session trials (30 per)'])
 plt.ylabel('Average cluster size per block')  # Add the label for y-axis
 
-# Create a DataFrame from the data
 
 averages = {
-	'Pre_Carvone': [10.33, 11.28125, 6.92, 7.0],
-	'Post_Carvone': [14.084745762711865,24.791666666666668, 19.0, 17.833333333333332],
-	'Pre_Cis': [20.6666666, 21.035714, 23.36363636,19.47368],
-	'Post_Cis': [11.803921568627452, 16.689655172413794, 16.863636363636363,21.46875],
+ 	'Pre_Carv': [28.583, 33.299, 28.499],
+ 	'Post_Carv': [28.884, 33.194, 29.463],
+ 	'Pre_Cis': [41.499, 38.399, 34.993],
+ 	'Post_Cis': [42.318, 38.430, 33.891],
     }
 
 df = pd.DataFrame(averages)
@@ -119,19 +118,19 @@ melted_df['Odor'] = melted_df['group'].str.split('_').str[1]
 
 # Create the bar plot using seaborn
 g = sns.catplot(
-	x='Odor',
-	y='Average Licks',
-	hue='Test',
-	data=melted_df,
-	kind='bar',
-	errorbar='sd',
-	edgecolor='black',
-	errcolor='black',
-	errwidth=1.5,
-	capsize=0.1,
-	height=6,
-	aspect=1.2,
-	alpha=0.5
+ 	x='Odor',
+ 	y='Average Licks',
+ 	hue='Test',
+ 	data=melted_df,
+ 	kind='bar',
+ 	errorbar='sd',
+ 	edgecolor='black',
+ 	errcolor='black',
+ 	errwidth=1.5,
+ 	capsize=0.1,
+ 	height=6,
+ 	aspect=1.2,
+ 	alpha=0.5
 )
 # Add the dot plot to the same figure
 sns.stripplot(
@@ -147,43 +146,8 @@ sns.stripplot(
     ax=g.ax,  # Use the same axes as the bar plot
 )
 
-# Set the legend for both bar and dot plots
-g.ax.legend(loc='upper right')
 
-# Show the plot
 plt.show()
 
 
-
-
-
-
-# Map data to stripplot
-
-# =============================================================================
-# g.map_dataframe(
-# 	sns.stripplot,
-# 	x='Odor',
-# 	y='Average Licks',
-# 	hue='Test',
-# 	hue_order=['Pre', 'Post'],
-# 	order=['Carvone', 'Cis'],
-# 	palette=sns.color_palette()[:2],
-# 	dodge=True,
-# 	alpha=1.0,  # Set alpha to 1.0 to avoid transparency
-# 	ec='k',
-# 	linewidth=1
-# )
-# 
-# # Adjust legend and plot titles
-# g.add_legend(title='Test')
-# plt.title('Average Cluster Size Per Condition')
-# plt.xlabel('Odor')
-# plt.ylabel('Average Cluster Size')
-# 
-# # Show the plot
-# plt.show()
-# plt.legend()
-# ##plt.ylabel('Numbernts')
-# plt.show()
-# =============================================================================
+==================================================================
