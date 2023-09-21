@@ -51,7 +51,7 @@ cond_idx = 0
 ave_list = []
 temp = []
 for cond_idx in range(0, len(data)):
-    temp.append(calc_avg(data, cond_idx, 0, 120, threashold))
+    temp.append(calc_avg(data, cond_idx, 0, 72, threashold))
 ave_list.append(temp)
 temp = []
 ave_t = np.array(ave_list).T.tolist()
@@ -149,41 +149,6 @@ sns.stripplot(
 
 # Set the legend for both bar and dot plots
 g.ax.legend(loc='upper right')
-
+plt.ylim(0, 40)
 # Show the plot
 plt.show()
-
-
-
-
-
-
-# Map data to stripplot
-
-# =============================================================================
-# g.map_dataframe(
-# 	sns.stripplot,
-# 	x='Odor',
-# 	y='Average Licks',
-# 	hue='Test',
-# 	hue_order=['Pre', 'Post'],
-# 	order=['Carvone', 'Cis'],
-# 	palette=sns.color_palette()[:2],
-# 	dodge=True,
-# 	alpha=1.0,  # Set alpha to 1.0 to avoid transparency
-# 	ec='k',
-# 	linewidth=1
-# )
-# 
-# # Adjust legend and plot titles
-# g.add_legend(title='Test')
-# plt.title('Average Cluster Size Per Condition')
-# plt.xlabel('Odor')
-# plt.ylabel('Average Cluster Size')
-# 
-# # Show the plot
-# plt.show()
-# plt.legend()
-# ##plt.ylabel('Numbernts')
-# plt.show()
-# =============================================================================
